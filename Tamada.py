@@ -49,6 +49,6 @@ while True:
 
         f.close
         #出力
-        print(str(tp) + '℃' + str(rh)+ '%' + str(ir) + str(co2ppm) + '%')
+        print(tp,'℃',rh,'%',ir,co2ppm,'%')
 
 time.sleep(1)
