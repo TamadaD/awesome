@@ -1,4 +1,5 @@
 # -*- coding : utf-8 -:-
+
 #import
 import serial
 import time
@@ -24,16 +25,19 @@ while True:
 #ビットシフト
     headByte = ser.read()
     head = int.from_bytes(headByte, 'big')
+
     if head == 128:
         isValids = [False for x in range(val_size)]
 
     for i in range(val_size):
+
         if head == 128+i:
             highByte = ser.read()
             lowByte = ser.read()
             high = int.from_bytes(highByte, 'big')
             low = int.from_bytes(lowByte, 'big')
             values[i] = (high<<7) + low
+            
             if 0 <= values[i] and values[i] <= 1023:
                 isValids[i] = True
 
