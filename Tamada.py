@@ -3,6 +3,7 @@
 import serial
 import time
 import csv
+from datetime import datetime
 
 #関数定義
 val_size = 4
@@ -10,7 +11,7 @@ values = [0 for x in range(val_size)]
 isValids = [False for x in range(val_size)]
 ser = serial.Serial('/Device/USBPDO-4',9600,timeout = 0.1)
 path = 'test.csv'
-fieldname = ['tp','rh','ir','co2ppm']
+fieldname = ['date','tp','rh','ir','co2ppm']
 
 with open(path, 'w') as f:
     writer = csv.DictWriter(f, fieldnames=fieldname)
@@ -42,10 +43,11 @@ while True:
         rh = values[1]/10
         ir = values[2]/10
         co2ppm = values[3]/10
+        date = datetime.now().strftime('%m%d%H')
 
         with open(path, 'a') as f:
             writer = csv.DictWriter(f, fieldnames=fieldname)
-            writer.writerow({'tp':tp,'rh':rh,'ir':ir,'co2ppm':co2ppm})
+            writer.writerow({'date':date,'tp':tp,'rh':rh,'ir':ir,'co2ppm':co2ppm})
 
         f.close
         #出力
