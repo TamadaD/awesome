@@ -14,6 +14,7 @@ ser = serial.Serial('/Device/USBPDO-4',9600,timeout = 0.1)
 path = 'test.csv'
 fieldname = ['date','tp','rh','ir','co2ppm']
 
+#ヘッダーの書き込み
 with open(path, 'w') as f:
     writer = csv.DictWriter(f, fieldnames=fieldname)
     writer.writeheader()
@@ -22,7 +23,6 @@ f.close
 
 #処理
 while True:
-#ビットシフト
     headByte = ser.read()
     head = int.from_bytes(headByte, 'big')
 
