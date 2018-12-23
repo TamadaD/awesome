@@ -1,11 +1,13 @@
+/* coding: utf-8
+
 /*----------------------------------------------------------------------
-@@‘S•”‚ÌƒZƒ“ƒT[“®‚©‚µ‚ÄCƒVƒŠƒAƒ‹’ÊM
+ï¿½@ï¿½@ï¿½Sï¿½ï¿½ï¿½ÌƒZï¿½ï¿½ï¿½Tï¿½[ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ÄCï¿½Vï¿½ï¿½ï¿½Aï¿½ï¿½ï¿½ÊM
 ---------------------------------------------------------------------- */
 #include <Wire.h>
 #include <MHZ19_uart.h>
 
-#define DEV_ADR 0x5c  // AM2320ƒXƒŒ[ƒuƒAƒhƒŒƒX
-#define LED 13  //Šm”F—pLED
+#define DEV_ADR 0x5c  // AM2320ï¿½Xï¿½ï¿½ï¿½[ï¿½uï¿½Aï¿½hï¿½ï¿½ï¿½X
+#define LED 13  //ï¿½mï¿½Fï¿½pLED
 
 uint8_t data[8];
 const int rx_pin = 4;  //Serial rx pin no
@@ -31,18 +33,18 @@ void loop() {
 	int temp = mhz19.getTemperature();
 	int date[1000];
 
-	// AM2320ƒZƒ“ƒT[‚ÌƒEƒFƒCƒNƒAƒbƒv
+	// AM2320ï¿½Zï¿½ï¿½ï¿½Tï¿½[ï¿½ÌƒEï¿½Fï¿½Cï¿½Nï¿½Aï¿½bï¿½v
 	Wire.beginTransmission(DEV_ADR);
 	Wire.endTransmission();
 
-	// ¼“xE‰·“xƒf[ƒ^æ“¾—v‹
+	// ï¿½ï¿½ï¿½xï¿½Eï¿½ï¿½ï¿½xï¿½fï¿½[ï¿½^ï¿½æ“¾ï¿½vï¿½ï¿½
 	Wire.beginTransmission(DEV_ADR);
-	Wire.write(0x03);         // ƒŒƒWƒXƒ^“Ç‚İæ‚èƒRƒ}ƒ“ƒh
-	Wire.write(0x00);         // “Ç‚İæ‚èŠJnƒŒƒWƒXƒ^”Ô†
-	Wire.write(0x04);         // “Ç‚İæ‚èƒf[ƒ^”    
+	Wire.write(0x03);         // ï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½Ç‚İï¿½ï¿½Rï¿½}ï¿½ï¿½ï¿½h
+	Wire.write(0x00);         // ï¿½Ç‚İï¿½ï¿½Jï¿½nï¿½ï¿½ï¿½Wï¿½Xï¿½^ï¿½Ôï¿½
+	Wire.write(0x04);         // ï¿½Ç‚İï¿½ï¿½fï¿½[ï¿½^ï¿½ï¿½    
 	Wire.endTransmission();
 
-	// ƒf[ƒ^‚Ìæ“¾
+	// ï¿½fï¿½[ï¿½^ï¿½Ìæ“¾
 	Wire.requestFrom(DEV_ADR, 8);
 
 	for (int del = 0; del < 1000; del++)
@@ -63,17 +65,17 @@ void loop() {
 			data[i] = Wire.read();
 		}
 
-		int rh = ((int)data[2] * 256 + data[3]) * 10; // ¼“x
-		int tp = ((int)data[4] * 256 + data[5]) * 10; // ‰·“x
+		int rh = ((int)data[2] * 256 + data[3]) * 10; // ï¿½ï¿½ï¿½x
+		int tp = ((int)data[4] * 256 + data[5]) * 10; // ï¿½ï¿½ï¿½x
 
-		int valu[val] = { tp,rh,ir,co2ppm };    //ƒŠƒXƒg‚Ì§ì
+		int valu[val] = { tp,rh,ir,co2ppm };    //ï¿½ï¿½ï¿½Xï¿½gï¿½Ìï¿½ï¿½ï¿½
 
 		for (int j = 0; j < val; j++)
 		{
 			int high = (valu[j] >> 7) & 127;
 			int low = valu[j] & 127;
 
-			Serial.write(128 + j);@@@@@@@//raspberry pi —p‚Ìƒf[ƒ^‘—M
+			Serial.write(128 + j);ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@ï¿½@//raspberry pi ï¿½pï¿½Ìƒfï¿½[ï¿½^ï¿½ï¿½ï¿½M
 			Serial.write(high);
 			Serial.write(low);
 		}
