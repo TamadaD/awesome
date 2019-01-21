@@ -11,4 +11,4 @@ while True:
         
     print(str(tp) +"℃"+ str(rh) +"%" +str(ir) + str(co2ppm) + "%")
 time.sleep(1)
-
+#Demo
