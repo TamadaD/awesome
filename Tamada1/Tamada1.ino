@@ -1,17 +1,15 @@
-/* coding: utf-8
+/* coding: utf-8*/
 
-/*----------------------------------------------------------------------
-�@�@�S���̃Z���T�[�������āC�V���A���ʐM
----------------------------------------------------------------------- */
+
 #include <Wire.h>
 #include <MHZ19_uart.h>
 
-#define DEV_ADR 0x5c  // AM2320�X���[�u�A�h���X
-#define LED 13  //�m�F�pLED
+#define DEV_ADR 0x5c  
+#define LED 13 
 
 uint8_t data[8];
-const int rx_pin = 4;  //Serial rx pin no
-const int tx_pin = 5; //Serial tx pin no
+const int rx_pin = 4;
+const int tx_pin = 5;
 int pin2 = 0;
 int all = 0;
 int val = 4;
@@ -33,18 +31,18 @@ void loop() {
 	int temp = mhz19.getTemperature();
 	int date[1000];
 
-	// AM2320�Z���T�[�̃E�F�C�N�A�b�v
+
 	Wire.beginTransmission(DEV_ADR);
 	Wire.endTransmission();
 
-	// ���x�E���x�f�[�^�擾�v��
+
 	Wire.beginTransmission(DEV_ADR);
-	Wire.write(0x03);         // ���W�X�^�ǂݎ��R�}���h
-	Wire.write(0x00);         // �ǂݎ��J�n���W�X�^�ԍ�
-	Wire.write(0x04);         // �ǂݎ��f�[�^��    
+	Wire.write(0x03);         
+	Wire.write(0x00);         
+	Wire.write(0x04);        
 	Wire.endTransmission();
 
-	// �f�[�^�̎擾
+	
 	Wire.requestFrom(DEV_ADR, 8);
 
 	for (int del = 0; del < 1000; del++)
@@ -65,17 +63,17 @@ void loop() {
 			data[i] = Wire.read();
 		}
 
-		int rh = ((int)data[2] * 256 + data[3]) * 10; // ���x
-		int tp = ((int)data[4] * 256 + data[5]) * 10; // ���x
+		int rh = ((int)data[2] * 256 + data[3]) * 10; 
+		int tp = ((int)data[4] * 256 + data[5]) * 10; 
 
-		int valu[val] = { tp,rh,ir,co2ppm };    //���X�g�̐���
+		int valu[val] = { tp,rh,ir,co2ppm };    
 
 		for (int j = 0; j < val; j++)
 		{
 			int high = (valu[j] >> 7) & 127;
 			int low = valu[j] & 127;
 
-			Serial.write(128 + j);�@�@�@�@�@�@�@//raspberry pi �p�̃f�[�^���M
+			Serial.write(128 + j);
 			Serial.write(high);
 			Serial.write(low);
 		}
