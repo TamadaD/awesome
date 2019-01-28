@@ -35,7 +35,7 @@
     </div>
     <input type="text"><input type="submit"><br>
     <script>
-        socket = new WebSocket('ws://192.168.43.110:1234');
+        socket = new WebSocket('ws://192.168.0.116:1234');
         socket.onmessage = function(e) {
             var term = e.data.split(':');
             var term1 = term[1].split(',');

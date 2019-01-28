@@ -14,7 +14,7 @@ isValids = [False for x in range(val_size)]
 ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.1)
 path: str = 'test.csv'
 fieldname = ['date', 'tp', 'ir', 'rh', 'co2ppm']
-ws = create_connection('ws:192.168.1.10:1234')
+ws = create_connection('ws:192.168.0.116:1234')
 
 # ヘッダーの書き込み
 with open(path, 'w') as f:
