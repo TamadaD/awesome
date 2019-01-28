@@ -11,6 +11,5 @@ def send_msg_all_client(client, server, message):
 
 server = WebsocketServer(1234, host='192.168.0.116')
 server.set_fn_new_client(new_client)
-server.set_fn_message_recieved(send_msg_all_client)
 
 server.run_forever()
