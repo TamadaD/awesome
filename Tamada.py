@@ -5,14 +5,16 @@ import serial
 import time
 import csv
 from datetime import datetime
+from websocket import create_connection
 
 # 関数定義
 val_size = 4
 values = [0 for x in range(val_size)]
 isValids = [False for x in range(val_size)]
 ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.1)
-path = 'test.csv'
+path: str = 'test.csv'
 fieldname = ['date', 'tp', 'ir', 'rh', 'co2ppm']
+ws = create_connection('ws:192.168.1.10:1234')
 
 # ヘッダーの書き込み
 with open(path, 'w') as f:
@@ -21,8 +23,9 @@ with open(path, 'w') as f:
 
 f.close
 
+
 # 処理
-while True:
+def main():
     headByte = ser.read()
     head = int.from_bytes(headByte, 'big')
 
@@ -41,18 +44,19 @@ while True:
             if 0 <= values[i] and values[i] <= 1023:
                 isValids[i] = True
 
-    # リスト内の要素を整理、/10して元のけたに戻す
+        # リスト内の要素を整理
         tp = values[0]
         rh = values[1]
         ir = values[2]
         co2ppm = values[3]
         date = datetime.now()
 
-        with open(path, 'a') as f:
-            writer = csv.DictWriter(f, fieldnames=fieldname)
+        with open(path, 'a') as fout:
+            writer = csv.DictWriter(fout, fieldnames=fieldname)
             writer.writerow({'date': date, 'tp': tp, 'rh': rh, 'ir': ir, 'co2ppm': co2ppm})
 
-        f.close
+        fout.close
         # 出力
-        print(tp, '℃', rh, '%', ir,co2ppm, 'ppm')
-        time.sleep(10)
+        print(tp, '℃', rh, '%', ir, co2ppm, 'ppm')
+        ws.send(tp + ',' + rh + ',' + ir + ',' + co2ppm)
+

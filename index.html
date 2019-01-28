@@ -1,0 +1,51 @@
+<html>
+
+<head>
+    <title>Tamada</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <style>
+        .fire {
+            background: black;
+            color: red;
+            font-family: Roboto;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="fire">
+        <table class="table1">
+            <thead>
+                <tr>
+                    <th>tp</th>
+                    <th>rh</th>
+                    <th>ir</th>
+                    <th>co2ppm</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>2</td>
+                    <td>3</td>
+                    <td>4</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <input type="text"><input type="submit"><br>
+    <script>
+        socket = new WebSocket('ws://192.168.43.110:1234');
+        socket.onmessage = function(e) {
+            var term = e.data.split(':');
+            var term1 = term[1].split(',');
+
+            $('.table1').find('td:nth-child(1)').html(term[0]);
+            $('.table1').find('td:nth-child(2)').html(term[1]);
+            $('.table1').find('td:nth-child(3)').html(term[2]);
+            $('.table1').find('td:nth-child(4)').html(term[3]);
+        }
+    </script>
+</body>
+
+</html>
