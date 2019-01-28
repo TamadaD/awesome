@@ -1,1 +1,0 @@
-print('Vim is god')

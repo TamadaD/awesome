@@ -55,3 +55,4 @@ while True:
         f.close
         # 出力
         print(tp, '℃', rh, '%', ir,co2ppm, 'ppm')
+        time.sleep(10)
