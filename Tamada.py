@@ -10,9 +10,9 @@ from datetime import datetime
 val_size = 4
 values = [0 for x in range(val_size)]
 isValids = [False for x in range(val_size)]
-ser = serial.Serial('/Device/USBPDO-4', 9600, timeout=0.1)
+ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.1)
 path = 'test.csv'
-fieldname = ['date', 'tp', 'rh', 'ir', 'co2ppm']
+fieldname = ['date', 'tp', 'ir', 'rh', 'co2ppm']
 
 # ヘッダーの書き込み
 with open(path, 'w') as f:
@@ -42,12 +42,11 @@ while True:
                 isValids[i] = True
 
     # リスト内の要素を整理、/10して元のけたに戻す
-    if all(i == True for i in isValids):
-        tp = values[0] / 10
-        rh = values[1] / 10
-        ir = values[2] / 10
-        co2ppm = values[3] / 10
-        date = datetime.now().strftime('%m%d%H')
+        tp = values[0]
+        rh = values[1]
+        ir = values[2]
+        co2ppm = values[3]
+        date = datetime.now()
 
         with open(path, 'a') as f:
             writer = csv.DictWriter(f, fieldnames=fieldname)
@@ -55,5 +54,4 @@ while True:
 
         f.close
         # 出力
-        print(tp, '℃', rh, '%', ir, co2ppm, '%')
-        time.sleep(1)
+        print(tp, '℃', rh, '%', ir,co2ppm, 'ppm')
