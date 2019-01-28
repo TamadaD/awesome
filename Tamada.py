@@ -15,6 +15,11 @@ ser = serial.Serial('/dev/ttyACM0', 9600, timeout=0.1)
 path=str('test.csv')
 fieldname = ['date', 'tp', 'ir', 'rh', 'co2ppm']
 ws = create_connection('ws://192.168.0.116:1234/')
+result = ws.recv()
+
+print('Recieved"%s"' % result)
+
+time.sleep(1)
 
 # ヘッダーの書き込み
 with open(path, 'w') as f:
@@ -59,4 +64,7 @@ def main():
         # 出力
         print(str(tp), '℃', str(rh), '%', str(ir), str(co2ppm), 'ppm')
         ws.send(str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
+        print('Recieved"%s"' %result)
+
+    ws.close()
 
