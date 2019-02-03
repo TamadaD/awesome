@@ -50,11 +50,11 @@ def main():
                 isValids [ i ] = True
 
         # リスト内の要素を整理
-        tp = values [ 0 ]
-        rh = values [ 1 ]
-        ir = values [ 2 ]
-        co2ppm = values [ 3 ]
-        date = datetime.now ()
+        tp = values [0]
+        rh = values [1]
+        ir = values [2]
+        co2ppm = values[3]
+        date = datetime.now()
 
         with open ( path, 'a' ) as fout :
             writer = csv.DictWriter ( fout, fieldnames=fieldname )
@@ -62,12 +62,12 @@ def main():
 
         fout.close
         # 出力
-        print ( str ( tp ), '℃', str ( rh ), '%', str ( ir ), str ( co2ppm ), 'ppm' )
-        ws.send ( str ( tp ) + ',' + str ( rh ) + ',' + str ( ir ) + ',' + str ( co2ppm ) )
-        print ( 'Recieved"%s"' % result )
+        print (str(tp), '℃', str(rh), '%', str (ir), str(co2ppm), 'ppm')
+        ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
+        print ('Recieved"%s"' % result)
 
     ws.close ()
 
-if __name__ == '__main__':
-    while True:
-        main()
+while True:
+    main()
+
