@@ -15,6 +15,7 @@ i = 0
 while True:
     tp, rh, ir, co2ppm = i, 2, 3, 6
     ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
+    i += 1
     time.sleep(1)
 
 
