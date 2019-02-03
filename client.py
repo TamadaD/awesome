@@ -11,11 +11,13 @@ result = ws.recv ()
 print ('Recieved"%s"' % result)
 
 
-i = 0
+tp, rh, ir, co2ppm = 1, 2, 3, 6
 while True:
-    tp, rh, ir, co2ppm = i, 2, 3, 6
     ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
-    i += 1
+    tp += 1
+    rh += 1
+    ir += 1
+    co2ppm += 1
     time.sleep(1)
 
 
