@@ -66,5 +66,5 @@ def main():
         ws.send(str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
         print('Recieved"%s"' %result)
 
-    ws.close()
+        ws.close()
 
