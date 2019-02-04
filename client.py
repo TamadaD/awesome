@@ -27,40 +27,42 @@ f.close
 
 
 # 処理
-while True:
-    headByte = ser.read ()
-    head = int.from_bytes (headByte, 'big')
+def main():
+    while True:
+        headByte = ser.read ()
+        head = int.from_bytes (headByte, 'big')
 
-    if head == 128:
-        isValids = [False for x in range (val_size)]
+        if head == 128:
+            isValids = [False for x in range (val_size)]
 
-    for i in range (val_size):
+        for i in range (val_size):
 
-        if head == 128 + i:
-            highByte = ser.read()
-            lowByte = ser.read()
-            high = int.from_bytes (highByte, 'big')
-            low = int.from_bytes (lowByte, 'big')
-            values [i] = (high << 7) + low
+            if head == 128 + i:
+                highByte = ser.read()
+                lowByte = ser.read()
+                high = int.from_bytes (highByte, 'big')
+                low = int.from_bytes (lowByte, 'big')
+                values [i] = (high << 7) + low
 
-            if 0 <= values [i]:
-                if values [i] <= 1023:
-                    isValids [i] = True
+                if 0 <= values [i]:
+                    if values [i] <= 1023:
+                        isValids [i] = True
 
-        # リスト内の要素を整理
-        tp = values[0]
-        rh = values[1]
-        ir = values[2]
-        co2ppm = values[3]
-        date = datetime.now()
+            # リスト内の要素を整理
+            tp = values[0]
+            rh = values[1]
+            ir = values[2]
+            co2ppm = values[3]
+            date = datetime.now()
 
-        with open (path, 'a') as fout:
-            writer = csv.DictWriter (fout, fieldnames=fieldname)
-            writer.writerow ({'date': date, 'tp': tp, 'rh': rh, 'ir': ir, 'co2ppm': co2ppm})
+            with open (path, 'a') as fout:
+                writer = csv.DictWriter (fout, fieldnames=fieldname)
+                writer.writerow ({'date': date, 'tp': tp, 'rh': rh, 'ir': ir, 'co2ppm': co2ppm})
 
-        fout.close
-        # 出力
-        ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
-        time.sleep(1)
+            fout.close
+            # 出力
+            ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
+            time.sleep(1)
 
-
+if __name__ == '__main__':
+    main()
