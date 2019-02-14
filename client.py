@@ -1,4 +1,4 @@
-# -*- coding : utf-8 -:-
+# coding : utf-8
 
 # import
 import serial
@@ -16,8 +16,6 @@ path = str('test.csv')
 fieldname = ['date', 'tp', 'ir', 'rh', 'co2ppm']
 ws = create_connection ('ws://192.168.0.116:1234/')
 
-time.sleep (1)
-
 # ヘッダーの書き込み
 with open (path, 'w') as f :
     writer = csv.DictWriter ( f, fieldnames=fieldname )
@@ -29,8 +27,8 @@ f.close
 # 処理
 def main():
     while True:
-        headByte = ser.read ()
-        head = int.from_bytes (headByte, 'big')
+        Head_Byte = ser.read ()
+        head = int.from_bytes (Head_Byte, 'big')
 
         if head == 128:
             isValids = [False for x in range (val_size)]

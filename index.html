@@ -4,9 +4,12 @@
     <title>Tamada</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <style>
-        .fire{
-            color: red;
-            font-family: Roboto;
+        .table1{
+            background: darkgray;
+            color: midnightblue;
+            font-family: "Yu Mintyo";
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
 </head>
@@ -32,12 +35,11 @@
             </tbody>
         </table>
     </div>
-    <input type="text"><input type="submit"><br>
     <script>
         socket = new WebSocket('ws://192.168.0.116:1234');
         socket.onmessage = function(e) {
             var term = e.data.split(':');
-            var term1 = term[1].split(',');
+            var term = term[1].split(',');
 
             $('.table1').find('td:nth-child(1)').html(term[0]);
             $('.table1').find('td:nth-child(2)').html(term[1]);
