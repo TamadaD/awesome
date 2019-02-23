@@ -34,67 +34,23 @@
                         <tr>
                             <th>周辺温度</th>
                             <th>周辺湿度</th>
-
+                            <th>赤外線量</th>
                             <th>二酸化炭素</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>26.16</td>
-                            <td>21.32</td>
-
-                            <td>2519</td>
+                            <td>1</td>
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
 
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
 
-
-            <canvas id="myChart" width="400" height="400"></canvas>
-            <script>
-                var ctx = document.getElementById("myChart").getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'bar',
-                    data: {
-                        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
-                        datasets: [{
-                            label: '# of Votes',
-                            data: [12, 19, 3, 5, 2, 3],
-                            backgroundColor: [
-                                'rgba(255, 99, 132, 0.2)',
-                                'rgba(54, 162, 235, 0.2)',
-                                'rgba(255, 206, 86, 0.2)',
-                                'rgba(75, 192, 192, 0.2)',
-                                'rgba(153, 102, 255, 0.2)',
-                                'rgba(255, 159, 64, 0.2)'
-                            ],
-                            borderColor: [
-                                'rgba(255,99,132,1)',
-                                'rgba(54, 162, 235, 1)',
-                                'rgba(255, 206, 86, 1)',
-                                'rgba(75, 192, 192, 1)',
-                                'rgba(153, 102, 255, 1)',
-                                'rgba(255, 159, 64, 1)'
-                            ],
-                            borderWidth: 1
-                        }]
-                    },
-                    options: {
-                        scales: {
-                            yAxes: [{
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }]
-                        }
-                    }
-                });
-            </script>
-
-
-
-            <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.1.4/Chart.min.js">
                 socket = new WebSocket('ws://192.168.0.116:1234');
                 socket.onmessage = function (e) {
                     var term = e.data.split(':');
@@ -105,57 +61,10 @@
                     $('.table1').find('td:nth-child(4)').html(term[3]);
                 }
 
-
-
-                if (date > 2000) {
-
-                    document.write("test");
-
-
-
-
-                }
-
-                new Chart(document.getElementById("myChart"), {
-                    type: "doughnut",
-                    data: {
-                        labels: ["赤", "青", "黄色"],
-                        datasets: [
-                            {
-                                data: [300, 50, 100],
-                                backgroundColor: [
-                                    "rgb(255, 99, 132)",
-                                    "rgb(54, 162, 235)",
-                                    "rgb(255, 205, 86)"
-                                ]
-                            }
-                        ]
-                    }
-                });
-
-
-                var ctx = document.getElementById('myChart').getContext('2d');
-                var myChart = new Chart(ctx, {
-                    type: 'line',
-                    data: {
-                        labels: ['M', 'T', 'W', 'T', 'F', 'S', 'S'],
-                        datasets: [{
-                            label: 'apples',
-                            data: [12, 19, 3, 17, 6, 3, 7],
-                            backgroundColor: "rgba(153,255,51,0.4)"
-                        }, {
-                            label: 'oranges',
-                            data: [2, 29, 5, 5, 2, 3, 10],
-                            backgroundColor: "rgba(255,153,0,0.4)"
-                        }]
-                    }
-                });
-
-
             </script>
 
         </article>
-        <canvas id="myChart"></canvas>
+    
     </body>
 
 </html>
