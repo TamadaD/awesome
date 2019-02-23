@@ -60,6 +60,7 @@ def main():
             fout.close
             # 出力
             ws.send (str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
+            print(str(tp) + ',' + str(rh) + ',' + str(ir) + ',' + str(co2ppm))
             time.sleep(1)
 
 if __name__ == '__main__':
