@@ -101,8 +101,17 @@ int ir = analogRead(A0) ;
     float tp = ((float)(data[4]*256+data[5]))/10; // 温度
 
 long co2ppm = 5000 * (time_high - 0.002) / (time_high + time_low - 0.004);
-Serial.print("PPM = " + String(co2ppm));
-Serial.println(ir);
-Serial.print(tp);
-Serial.println(rh);
+
+int valu[val] = {tp,rh,ir,co2ppm};    //リストの制作
+    
+        for(int j=0;j<val;j++)
+        {
+        int high = (valu[j] >> 7)&127;
+        int low  = valu[j]&127;
+        
+        Serial.write(128+j);//raspberry pi 用のデータ送信
+        Serial.write(high);
+        Serial.write(low);  
+          }
+
 }
