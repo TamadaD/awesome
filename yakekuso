@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+
+
+    <head>
+        <title>エヴァ風サイト（仮）</title>
+        <meta charset="UTF-8">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+        <link rel="stylesheet" href="eva.css">
+
+    </head>
+
+    <body>
+
+        <article>
+
+            <h1>警告</h1>
+
+            <p>WARNING</p>
+
+            <p>混雑度基準値超過</p>
+
+        </article>
+
+        <article>
+
+            <div class="fire">
+                <table class="table1" align="center" width="900" height="300">
+                    <thead>
+                        <tr>
+                            <th>周辺温度</th>
+                            <th>周辺湿度</th>
+                            <th>赤外線量</th>
+                            <th>二酸化炭素</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>1</td>
+                           <!----
+                            <td>2</td>
+                            <td>3</td>
+                            <td>4</td>
+                            --->
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js">
+
+                socket = new WebSocket('ws://192.168.0.116:1234');　　　　　//WS change please
+                socket.onmessage = function (e) {
+                    var term = e.data.split(':');
+                    var term1 = term[1].split(',');
+                    $('.table1').find('td:nth-child(1)').html(term[0]);
+                    $('.table1').find('td:nth-child(2)').html(term[1]);
+                    $('.table1').find('td:nth-child(3)').html(term[2]);
+                    $('.table1').find('td:nth-child(4)').html(term[3]);
+                }
+
+            </script>
+
+        </article>
+    
+    </body>
+
+</html>
